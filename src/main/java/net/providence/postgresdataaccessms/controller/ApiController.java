@@ -2,10 +2,12 @@ package net.providence.postgresdataaccessms.controller;
 
 import lombok.RequiredArgsConstructor;
 import net.providence.postgresdataaccessms.model.Cliente;
+import net.providence.postgresdataaccessms.model.Contacto;
 import net.providence.postgresdataaccessms.repository.ClienteRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,6 +26,14 @@ public class ApiController {
             cliente.setApellidos(RandomStringUtils.randomAlphanumeric(40));
             cliente.setCorreo(RandomStringUtils.randomAlphanumeric(30));
             cliente.setFechaNacimiento(new Date());
+
+            List<Contacto> contactos = new ArrayList<>();
+            for(int j = 0 ; j < 10 ; j++){
+                Contacto contacto = new Contacto();
+                contacto.setNombre(RandomStringUtils.randomAlphanumeric(60));
+                contactos.add(contacto);
+            }
+            cliente.setContactos(contactos);
 
             clienteRepository.save(cliente);
         }
