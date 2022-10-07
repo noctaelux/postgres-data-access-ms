@@ -1,9 +1,14 @@
 package net.providence.postgresdataaccessms.model;
 
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.*;
+import net.providence.postgresdataaccessms.xmltype.SQLXMLType;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlType;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -13,6 +18,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
+@TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 public class Cliente {
 
     @Id
@@ -25,6 +31,12 @@ public class Cliente {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "idContacto")
     private List<Contacto> contactos;
+    @Type(type = "jsonb")
+    @Column(columnDefinition = "jsonb")
+    private Libro libro;
+//    @Lob
+//    @Column(columnDefinition = "xml")
+//    private Direccion direccion;
 
     @Override
     public boolean equals(Object o) {
