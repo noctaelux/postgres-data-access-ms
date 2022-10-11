@@ -1,14 +1,15 @@
 package net.providence.postgresdataaccessms.model;
 
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
-import lombok.*;
-import net.providence.postgresdataaccessms.xmltype.SQLXMLType;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlType;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;

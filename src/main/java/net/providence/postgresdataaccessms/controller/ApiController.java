@@ -4,13 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import net.providence.postgresdataaccessms.model.Cliente;
 import net.providence.postgresdataaccessms.model.Contacto;
-import net.providence.postgresdataaccessms.model.Direccion;
 import net.providence.postgresdataaccessms.model.Libro;
 import net.providence.postgresdataaccessms.repository.ClienteRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
