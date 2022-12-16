@@ -17,7 +17,6 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 public class Cliente {
@@ -35,9 +34,6 @@ public class Cliente {
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
     private Libro libro;
-//    @Lob
-//    @Column(columnDefinition = "xml")
-//    private Direccion direccion;
 
     @Override
     public boolean equals(Object o) {

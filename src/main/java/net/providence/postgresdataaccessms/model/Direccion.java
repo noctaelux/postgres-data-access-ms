@@ -1,22 +1,23 @@
 package net.providence.postgresdataaccessms.model;
 
-import lombok.Data;
-import lombok.ToString;
+import lombok.Setter;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@Data
-@ToString
-@XmlRootElement
+@Setter
+@XmlRootElement(name = "direccion")
 public class Direccion {
 
-    @XmlElement(name = "CodigoPostal")
+    @XmlAttribute
+    private String id;
+    @XmlElement
     private String codigoPostal;
-    @XmlElement(name = "Calle")
+    @XmlElement
     private String calle;
-    @XmlElement(name = "Colonia")
+    @XmlElement
     private String colonia;
-    @XmlElement(name = "Numero")
+    @XmlElement
     private String numero;
 }

@@ -4,11 +4,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import net.providence.postgresdataaccessms.model.Cliente;
 import net.providence.postgresdataaccessms.model.Contacto;
+import net.providence.postgresdataaccessms.model.Direccion;
 import net.providence.postgresdataaccessms.model.Libro;
 import net.providence.postgresdataaccessms.repository.ClienteRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,7 +27,7 @@ public class ApiController {
     private final ClienteRepository clienteRepository;
 
     @PostMapping("/agregar/{datos}")
-    public String generateData(@PathVariable Long datos) throws IOException {
+    public String generateData(@PathVariable Long datos) throws IOException, JAXBException {
 
         ObjectMapper mapper = new ObjectMapper();
 
@@ -38,15 +43,19 @@ public class ApiController {
             libro.setAutor(RandomStringUtils.randomAlphanumeric(20)+"/"+RandomStringUtils.randomAlphanumeric(20));
             libro.setIsbn(RandomStringUtils.randomAlphanumeric(10));
 
-            cliente.setLibro(libro);
+            Direccion direccion = new Direccion();
+            direccion.setId(RandomStringUtils.randomNumeric(6));
+            direccion.setCalle(RandomStringUtils.randomAlphanumeric(15));
+            direccion.setColonia(RandomStringUtils.randomAlphanumeric(20));
+            direccion.setCodigoPostal(RandomStringUtils.randomNumeric(5));
+            direccion.setNumero(RandomStringUtils.randomNumeric(3));
 
-//            Direccion direccion = new Direccion();
-//            direccion.setNumero("22");
-//            direccion.setCalle("Gobernadores");
-//            direccion.setCodigoPostal("99999");
-//            direccion.setColonia("Héroes de Chalco");
-//
-//            cliente.setDireccion(direccion);
+            JAXBContext context = JAXBContext.newInstance(Direccion.class);
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            marshaller.marshal(direccion,new File("./direccion.xml"));
+
+            cliente.setLibro(libro);
 
             List<Contacto> contactos = new ArrayList<>();
             for(int j = 0 ; j < 10 ; j++){
