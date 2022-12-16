@@ -1,21 +1,23 @@
 package net.providence.postgresdataaccessms.model;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
+@Data
 public class Contacto {
+
+    public Contacto(String nombre){
+        this.nombre = nombre;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
+
+    public Contacto() {
+
+    }
 }
