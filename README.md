@@ -88,6 +88,8 @@ spring.jpa.hibernate.ddl-auto=update
 ```
 
 ### Fuentes
+- https://www.baeldung.com/jpa-entities
+- https://www.javatpoint.com/spring-boot-jpa
 - https://www.baeldung.com/jaxb
 - https://howtodoinjava.com/jaxb/write-object-to-xml/
 - https://wiki.postgresql.org/wiki/Hibernate_XML_Type
