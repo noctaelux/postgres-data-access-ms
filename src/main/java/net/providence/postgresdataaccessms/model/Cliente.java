@@ -1,7 +1,7 @@
 package net.providence.postgresdataaccessms.model;
 
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
-import lombok.Builder;
+import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
@@ -12,7 +12,10 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 public class Cliente {
 
@@ -31,10 +34,6 @@ public class Cliente {
     private Libro libro;
     @Type(type = "net.providence.postgresdataaccessms.dbtype.SQLXMLType")
     private String direccion;
-
-    public Cliente() {
-
-    }
 
     @Override
     public boolean equals(Object o) {

@@ -1,6 +1,7 @@
 package net.providence.postgresdataaccessms.service;
 
 import lombok.RequiredArgsConstructor;
+import net.providence.postgresdataaccessms.exception.NoSuchElementFoundException;
 import net.providence.postgresdataaccessms.model.Cliente;
 import net.providence.postgresdataaccessms.model.Contacto;
 import net.providence.postgresdataaccessms.model.Direccion;
@@ -9,6 +10,7 @@ import net.providence.postgresdataaccessms.repository.ClienteRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -19,6 +21,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ApiServiceImpl implements ApiService{
 
     private final ClienteRepository clienteRepository;
@@ -66,6 +69,31 @@ public class ApiServiceImpl implements ApiService{
 
             clienteRepository.save(cliente);
         }
+    }
+
+    @Override
+    public void nuevo(Cliente cliente) {
+        clienteRepository.save(cliente);
+    }
+
+    @Override
+    public Cliente actualizar(Cliente cliente) {
+
+        if(clienteRepository.findById(cliente.getId()).isPresent()){
+            return clienteRepository.save(cliente);
+        }else {
+            throw new NoSuchElementFoundException("No se ha encontrado el cliente.");
+        }
+    }
+
+    @Override
+    public void removerCliente(Long id) {
+        if (clienteRepository.findById(id).isPresent()){
+            clienteRepository.deleteById(id);
+        }else {
+            throw new NoSuchElementFoundException("No se ha encontrado el cliente.");
+        }
+
     }
 
     @Override

@@ -3,6 +3,8 @@ package net.providence.postgresdataaccessms.controller;
 import lombok.RequiredArgsConstructor;
 import net.providence.postgresdataaccessms.model.Cliente;
 import net.providence.postgresdataaccessms.service.ApiService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.xml.bind.JAXBException;
@@ -22,21 +24,45 @@ public class ApiController {
             apiService.addData(datos);
         } catch (JAXBException e) {
             resp = e.getMessage();
+            e.printStackTrace();
         }
         return resp;
     }
 
-    @GetMapping("/id/{id}")
+    @PostMapping(value = "/cliente", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public String nuevoCliente(@RequestBody Cliente cliente){
+        apiService.nuevo(cliente);
+        return "OK";
+    }
+
+    @PutMapping("/cliente")
+    @ResponseStatus(HttpStatus.OK)
+    public Cliente actualizaCliente(@RequestBody Cliente cliente){
+        return apiService.actualizar(cliente);
+    }
+
+    @DeleteMapping("/cliente/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public String removerCliente(@PathVariable Long id){
+        apiService.removerCliente(id);
+        return "OK";
+    }
+
+    @GetMapping("/cliente/id/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Cliente traePorId(@PathVariable Long id){
         return apiService.getById(id);
     }
 
-    @GetMapping("/list")
+    @GetMapping("/cliente/list")
+    @ResponseStatus(HttpStatus.OK)
     public List<Cliente> traeData(){
         return apiService.getList();
     }
 
-    @DeleteMapping("/flush")
+    @DeleteMapping("/clientes/flush")
+    @ResponseStatus(HttpStatus.OK)
     public String flushData(){
         apiService.flushData();
         return "OK";

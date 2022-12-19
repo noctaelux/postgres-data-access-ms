@@ -1,6 +1,8 @@
 package net.providence.postgresdataaccessms.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -9,6 +11,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @XmlRootElement(name = "direccion")
 public class Direccion {
 
